@@ -1,0 +1,128 @@
+<ba-card cardTitle="Bienvenido al sistema SI-SAGA" baCardClass="with-scroll">
+	<form class="form-horizontal">
+		<div class="container-fluid">
+			<div class="form-group row">
+				<h4>Ingrese los datos para crear un documento</h4>
+			</div>
+			<div class="form-group row">
+				<div class="form-group col-md-6">
+					<label for="shortnamedoc" class="control-label col-md-12">Nombre Corto:</label>
+					<div class="col-md-12">
+						<input class="form-control" id="shortnamedoc" name="shortnamedoc" type="text" placeholder="Nombre Corto" 
+						[(ngModel)]="document.shortnamedoc"
+						 #shortnamedoc="ngModel" required maxlength="10" minlength="3">
+						<div *ngIf="shortnamedoc.errors">
+							<div *ngIf="shortnamedoc.touched && !shortnamedoc.valid" class="alert alert-danger">
+								<strong>Warning!</strong>Campo requerido.
+							</div>
+							<div *ngIf="!shortnamedoc.validator.minlength && shortnamedoc.touched" class="alert alert-danger ">
+								<strong>Warning!</strong>Se Requieren mínimo 3 caracteres
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="name" class="control-label col-md-12">Nombre:</label>
+					<div class="col-md-12">
+						<input type="text" class="form-control" id="name" name="name" placeholder="Nombre" 
+						[(ngModel)]="document.name" #name="ngModel"
+						 required maxlength="50" minlength="3">
+						<div *ngIf="name.errors">
+							<div *ngIf="name.touched && !name.valid" class="alert alert-danger">
+								<strong>Warning!</strong>Campo requerido.
+							</div>
+							<div *ngIf="!name.validator.minlength && name.touched" class="alert alert-danger ">
+								<strong>Warning!</strong>Se Requieren mínimo 3 caracteres
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="form-group col-md-6">
+					<label for="description" class="control-label col-md-12">Descripción:</label>
+					<div class="col-md-12">
+						<input type="text" class="form-control" id="description" name="description" placeholder="Descripción" 
+						[(ngModel)]="document.description"
+						 #description="ngModel" required maxlength="150" minlength="3">
+						<div *ngIf="description.errors">
+							<div *ngIf="description.touched && !description.valid" class="alert alert-danger">
+								<strong>Warning!</strong>Campo requerido.
+							</div>
+							<div *ngIf="!description.validator.minlength && description.touched" class="alert alert-danger ">
+								<strong>Warning!</strong>Se Requieren mínimo 3 caracteres
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group col-md-6 ">
+					<label for="creationdate" class="control-label col-md-12">Fecha de Creación:</label>
+					<div class="col-md-12">
+						<div class="input-group date">
+							<my-date-picker name="creationdate" [options]="myDatePickerOptions" 
+							[(ngModel)]="document.creationdate" #creationdate="ngModel"
+							 required></my-date-picker>
+						</div>
+						<div *ngIf="creationdate.errors">
+							<div *ngIf="creationdate.touched && !creationdate.valid" class="alert alert-danger">
+								<strong>Warning!</strong>Campo requerido.
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="form-group col-md-6">
+					<label for="shortnamespr" class="control-label col-md-12">Proyecto:</label>
+					<div class="col-md-12">
+						<input type="text" class="form-control" id="shortnamespr" name="shortnamespr" placeholder="Proyecto Asociado" 
+						[(ngModel)]="document.shortnamespr"
+						 #shortnamespr="ngModel" required maxlength="10" minlength="3">
+						<div *ngIf="shortnamespr.errors">
+							<div *ngIf="shortnamespr.touched && !shortnamespr.valid" class="alert alert-danger">
+								<strong>Warning!</strong>Campo requerido.
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="file" class="control-label col-md-12">Documento:</label>
+					<div class="col-md-12">
+						
+					
+						<ba-file-uploader  [fileUploaderOptions]="fileUploaderOptions" [(ngModel)]="document.file" 
+						name="file" #file="ngModel" type="file"
+						 required></ba-file-uploader>
+					
+
+					
+						<div *ngIf="file.errors">
+							<div *ngIf="file.pristine &&  !file.valid " class="alert alert-danger">
+								<strong>Warning!</strong>Campo requerido.
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-md-3">
+				</div>
+				<div class="col-md-6">
+				</div>
+				<div class="col-md-3">
+					<div *ngIf="shortnamedoc.errors || name.errors || description.errors || creationdate.errors || file.errors || shortnamespr.errors">
+						<button class="btn btn-success" (click)="saveDocument()" disabled="">Guardar</button>
+						<button class="btn btn-info" (click)="resetForm()">Cancelar</button>
+					</div>
+
+					<div *ngIf="!shortnamedoc.errors && !name.errors && !description.errors && !creationdate.errors && !file.errors && !shortnamespr.errors">
+						<button class="btn btn-success" (click)="saveDocument()">Guardar</button>
+						<button class="btn btn-info" (click)="resetForm()">Cancelar</button>
+					</div>
+				</div>
+			</div>
+			{{document.file}}
+		</div>
+	</form>
+</ba-card>

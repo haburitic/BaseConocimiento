@@ -1,0 +1,126 @@
+
+        <ba-card cardTitle="Bienvenido al sistema SI-SAGA" baCardClass="with-scroll">
+				<form class="form-horizontal">
+					<div class="container-fluid">
+						<div class="form-group row">
+							<h4>Ingrese los nuevos datos: </h4>
+						</div>
+						<div class="form-group row">
+							<div class="form-group col-md-6">
+								<label for="idnuser" class="control-label col-md-12">ID:</label>
+								<div class="col-md-12">
+									<input class="form-control" id="idnuser" type="text" placeholder="ID" name="idnuser" 
+									[(ngModel)]="user.idnuser" #idnuser="ngModel" value = {{user.idnuser}}
+									 maxlength="10" minlength="1" required readonly>
+									<div *ngIf="idnuser.errors">
+										<div *ngIf="idnuser.touched && !idnuser.valid" class="alert alert-danger">
+											<strong>Warning!</strong>Campo requerido.
+										</div>
+										<div *ngIf="!idnuser.validator.minlength && idnuser.touched" class="alert alert-danger ">
+											<strong>Warning!</strong>Se Requieren mínimo 1 caracter
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="name" class="control-label col-md-12">Nombre:</label>
+								<div class="col-md-12">
+									<input class="form-control" id="name" type="text" placeholder="nombre" name="name" 
+									[(ngModel)]="user.name" #name="ngModel" value = {{user.name}}
+									 required maxlength="50" minlength="3">
+									<div *ngIf="name.errors">
+										<div *ngIf="name.touched && !name.valid" class="alert alert-danger">
+											<strong>Warning!</strong>Campo requerido.
+										</div>
+										<div *ngIf="!name.validator.minlength && name.touched" class="alert alert-danger ">
+											<strong>Warning!</strong>Se Requieren mínimo 3 caracteres
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="form-group col-md-6">
+								<label for="lastname" class="control-label col-md-12">Apellido:</label>
+								<div class="col-md-12">
+									<input type="text" class="form-control" id="lastname" placeholder="apellido" name="lastname" [(ngModel)]="user.lastname"
+									 #lastname="ngModel" value = {{user.lastname}} required maxlength="50" minlength="3">
+									<div *ngIf="lastname.errors">
+										<div *ngIf="lastname.touched && !lastname.valid" class="alert alert-danger">
+											<strong>Warning!</strong>Campo requerido.
+										</div>
+										<div *ngIf="!lastname.validator.minlength && lastname.touched" class="alert alert-danger ">
+											<strong>Warning!</strong>Se Requieren mínimo 3 caracteres
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="nameuser" class="control-label col-md-12">Usuario:</label>
+								<div class="col-md-12">
+									<input type="text" class="form-control" id="nameuser" placeholder="usuario" name="nameuser" 
+									[(ngModel)]="user.nameuser" #nameuser="ngModel" value = {{user.nameuser}}
+									 required maxlength="50" minlength="3">
+									<div *ngIf="nameuser.errors">
+										<div *ngIf="nameuser.touched && !nameuser.valid" class="alert alert-danger">
+											<strong>Warning!</strong>Campo requerido.
+										</div>
+										<div *ngIf="!nameuser.validator.minlength && nameuser.touched" class="alert alert-danger ">
+											<strong>Warning!</strong>Se Requieren mínimo 3 caracteres
+										</div>
+									</div>
+								</div>
+				
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="form-group col-md-6">
+								<label for="emai" class="control-label col-md-12">Email:</label>
+								<div class="col-md-12">
+									<input type="text" class="form-control" id="email" placeholder="e-mail" name="email"
+									[(ngModel)]="user.email" #email="ngModel" value = {{user.email}}
+									 required pattern = "^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+									<div *ngIf="email.errors">
+										<div *ngIf="!email.valid && email.touched" class="alert alert-danger">
+											<strong>Warning!</strong>Verifique Email
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group  col-md-6">
+								<label for="idnrole" class="control-label col-md-12">Rol:</label>
+								<div class="col-md-12">
+									<div class="form-group">
+										<select class="form-control" id="idnrole" name="idnrole" [(ngModel)]="user.idnrole" #idnrole="ngModel" required>
+											<option *ngFor = "let role of roles" [value] = "role.idnrole" >{{role.namerole}}</option>
+										</select>
+										<div *ngIf="idnrole.errors">
+											<div *ngIf="!idnrole.valid && idnrole.touched" class="alert alert-danger">
+												<strong>Warning!</strong>Campo Requerido
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-md-3">
+							</div>
+							<div class="col-md-6">
+							</div>
+							<div class="col-md-3">
+				
+								<div *ngIf=" idnuser.errors || name.errors || lastname.errors || nameuser.errors || email.errors || idnrole.errors">
+									<button class="btn btn-success" (click)="updateUser()" disabled="">Guardar</button>
+									<button class="btn btn-info" (click)="resetForm()">Cancelar</button>
+								</div>
+				
+								<div *ngIf="!idnuser.errors && !name.errors && !lastname.errors && !nameuser.errors && !email.errors && !idnrole.errors">
+									<button class="btn btn-success" (click)="updateUser()">Guardar</button>
+									<button class="btn btn-info" (click)="resetForm()">Cancelar</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+				</ba-card>

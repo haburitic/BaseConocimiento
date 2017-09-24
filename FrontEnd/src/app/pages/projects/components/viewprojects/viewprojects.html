@@ -1,0 +1,264 @@
+<ba-card cardTitle="Bienvenido al sistema SI-SAGA" baCardClass="with-scroll">
+	<form class="form-horizontal">
+		<div class="container-fluid">
+			<div class="form-group row">
+				<h4>Buscar proyectos o subproyectos para listar </h4>
+			</div>
+			<div class="form-group row">
+				<div class="btn-group">
+					<button class="btn btn-primary" (click)="showForm = 1" ng-click="formToggle()">Proyecto</button>
+					<button class="btn btn-primary" (click)="showForm = 2" ng-click="formToggle()">Subproyecto</button>
+				</div>
+			</div>
+			<div class="box-shadow-border"></div>
+			<br>
+			<div class="form-project" *ngIf="showForm == 1">
+				<div class="form-group row">
+					<h4>Proyectos </h4>
+				</div>
+
+							<div class="container-fluid">
+					<div class="form-group row">
+						<h4>Buscar Proyectos para listar</h4>
+					</div>	
+				<div class="row">
+			<div class="col-sm-2">
+				<label class="label-control">Columnas por Página</label>
+				<select class="form-control input-sm" >
+				<option [ngValue]="5">5</option>
+				<option [ngValue]="10">10</option>
+				<option [ngValue]="15">15</option>
+			</select>
+			</div>
+			<div class="col-sm-4">
+				<div class="row">
+					<label class="col-sm-12 label-control">Sort by</label>
+				</div>
+				<div class="row">
+					<div class="offset-sm-1 col-sm-5">
+						<div class="row">
+							<select class="form-control input-sm" >
+						<option [ngValue]="sortByWordLength">Nombre corto</option>
+						<option ngValue="name">Nombre</option>
+						<option ngValue="description">Descripción</option>
+						<option ngValue="creationdate">Fecha creación</option>
+						<option ngValue="author">Autor</option>
+						<option ngValue="typeproject">Tipo Proyecto</option>
+					</select>
+						</div>
+					</div>
+					<div class="offset-sm-1 col-sm-5">
+						<div class="row">
+							<select class="form-control input-sm" >
+						<option ngValue="asc">Ascendente</option>
+						<option ngValue="desc">Descendente</option>
+						<option ngValue="badValue">Valor Cercano</option>
+					</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Información de Proyectos</div>
+
+			<table class="table table-striped" [mfData]="projects " #mf="mfDataTable" >
+			<thead>
+				<tr>
+					
+					<th style="width: 10%">
+						<mfDefaultSorter [by]="sortByWordLength">Nombre Corto</mfDefaultSorter>
+					</th>
+					<th style="width: 20%">
+						<mfDefaultSorter by="name">Name</mfDefaultSorter>
+					</th>
+					<th style="width: 20%">
+							<mfDefaultSorter by="description">descripción</mfDefaultSorter>
+						</th>
+					<th style="width: 10%">
+						<mfDefaultSorter by="creationdate">Fecha Creación</mfDefaultSorter>
+					</th>
+					<th style="width: 10%">
+							<mfDefaultSorter by="author">Author</mfDefaultSorter>
+						</th>
+						
+					<th style="width: 10%">
+						<mfDefaultSorter by="typeproject">Tipo Proyecto</mfDefaultSorter>
+					</th>
+					<th style="width: 10%">
+						<mfDefaultSorter by="edit">Editar</mfDefaultSorter>
+					</th>
+					<th style="width: 10%">
+						<mfDefaultSorter by="delete">Eliminar</mfDefaultSorter>
+					
+				</tr>
+				<tr>
+					<th colspan="8">
+						Filtro
+						<input class="form-control" />
+					</th>
+				</tr>
+			</thead>
+				<tbody>
+					<tr *ngFor="let item of mf.data">
+					
+						<td>{{item.shortnamegnp}}</td>
+						<td>{{item.name}}</td>
+						<td >{{item.description}}</td>
+						<td>{{item.creationdate}}</td>
+						<td>Autor</td>
+						<td>Autor</td>
+						
+							
+							<td>
+								<button class="btn btn-primary" (click)="goEditProject(item)" title="Edit"><span class = "ion ion-edit"></span></button>
+							</td>
+							<td><button class="btn btn-danger" (click)="goDeleteProject(item)" title="Delete"><span class = "ion ion-trash-a"></span></button>
+							</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					
+					<tr>
+						<td colspan="5">
+							<mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+			</div>
+			<div class="form-project-sp" *ngIf="showForm == 2">
+				
+					<div class="form-group row">
+							<h4>SubProyectos </h4>
+						</div>
+
+				
+						<div class="container-fluid">
+							<div class="form-group row">
+								<h4>Buscar Subproyectos para listar</h4>
+							</div>	
+						<div class="row">
+					<div class="col-sm-2">
+						<label class="label-control">Columnas por Página</label>
+						<select class="form-control input-sm" >
+						<option [ngValue]="5">5</option>
+						<option [ngValue]="10">10</option>
+						<option [ngValue]="15">15</option>
+					</select>
+					</div>
+					<div class="col-sm-4">
+						<div class="row">
+							<label class="col-sm-12 label-control">Sort by</label>
+						</div>
+						<div class="row">
+							<div class="offset-sm-1 col-sm-5">
+								<div class="row">
+									<select class="form-control input-sm" >
+								<option [ngValue]="sortByWordLength">Proyecto Raiz</option>
+								<option ngValue="shortnamespr">Nombre corto</option>
+								<option ngValue="name">Nombre</option>
+								<option ngValue="description">Descripción</option>
+								<option ngValue="creationdate">Fecha creación</option>
+								<option ngValue="labels">Etiquetas</option>
+								<option ngValue="author">Autor</option>
+							</select>
+								</div>
+							</div>
+							<div class="offset-sm-1 col-sm-5">
+								<div class="row">
+									<select class="form-control input-sm" >
+								<option ngValue="asc">Ascendente</option>
+								<option ngValue="desc">Descendente</option>
+								<option ngValue="badValue">Valor Cercano</option>
+							</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">Información de Subproyectos</div>
+		
+					<table class="table table-striped" [mfData]="subProject " #mf="mfDataTable" 
+					>
+						<thead>
+							<tr>
+								
+								<th style="width: 10%">
+									<mfDefaultSorter [by]="sortByWordLength">Proyecto Raíz</mfDefaultSorter>
+								</th>
+								<th style="width: 10%">
+									<mfDefaultSorter by="shortname">Nombre Corto</mfDefaultSorter>
+								</th>
+								<th style="width: 10%">
+									<mfDefaultSorter by="name">Name</mfDefaultSorter>
+								</th>
+								<th style="width: 10%">
+										<mfDefaultSorter by="description">descripción</mfDefaultSorter>
+									</th>
+								<th style="width: 10%">
+									<mfDefaultSorter by="creationdate">Fecha Creación</mfDefaultSorter>
+								</th>
+								<th style="width: 10%">
+										<mfDefaultSorter by="label">Etiqueta</mfDefaultSorter>
+									</th>
+									
+								<th style="width: 10%">
+									<mfDefaultSorter by="author">Autor</mfDefaultSorter>
+								</th>
+								<th style="width: 10%">
+									<mfDefaultSorter by="document">Documento</mfDefaultSorter>
+								</th>
+								<th style="width: 10%">
+									<mfDefaultSorter by="edit">Editar</mfDefaultSorter>
+								</th>
+								<th style="width: 10%">
+									<mfDefaultSorter by="delete">Eliminar</mfDefaultSorter>
+								
+							</tr>
+							<tr>
+								<th colspan="11">
+									Filtro
+									<input class="form-control"  />
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of mf.data">
+								
+								<td>{{item.shortnamegnp}}</td>
+								<td>{{item.shortnamespr}}</td>
+								<td>{{item.name}}</td>
+								<td >{{item.description}}</td>
+								<td>{{item.creationdate}}</td>
+								<td>Autor</td>
+								<td>Etiqueta</td>
+								
+									
+								<td>
+									<button class="btn btn-primary" ng-click="editInfo(detail)" title="Edit"><span class = "ion ion-document-text"></span></button>
+								</td>
+								<td>
+									<button class="btn btn-success" (click)="goEditSubProject(item)" title="Edit"><span class = "ion ion-edit"></span></button>
+								</td>
+								<td><button class="btn btn-danger" (click)="goDeleteSubProject(item)" title="Delete"><span class = "ion ion-trash-a"></span></button></td>
+							</tr>
+						</tbody>
+						<tfoot>
+							
+							<tr>
+								<td colspan="5">
+									<mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+			</div>
+		</div>
+	</form>
+</ba-card>

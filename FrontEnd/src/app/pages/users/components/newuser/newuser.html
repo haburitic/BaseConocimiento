@@ -1,0 +1,115 @@
+<ba-card cardTitle="Bienvenido al sistema SI-SAGA" baCardClass="with-scroll">
+	<form class="Form-horizontal prueba" no validate>
+		<div class="container-fluid">
+			<div class="form-group row">
+				<h4>Ingrese los datos para crear un usuario</h4>
+			</div>
+			<div class="form-group row">
+				<div class="form-group col-md-6">
+					<label for="name" class="control-label col-md-12">Nombre:</label>
+					<div class="col-md-12">
+
+						<input class="form-control" id="name" name="name" type="text" placeholder="Nombre" 
+						[(ngModel)]="user.name" #name="ngModel"
+						 required maxlength="20" minlength="3">
+						<div *ngIf="name.errors">
+							<div *ngIf="name.touched && !name.valid" class="alert alert-danger">
+								<strong>Warning!</strong>Campo requerido.
+							</div>
+							<div *ngIf="!name.validator.minlength && name.touched" class="alert alert-danger ">
+								<strong>Warning!</strong>Se Requieren mínimo 3 caracteres
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="lastname" class="control-label col-md-12">Apellido:</label>
+					<div class="col-md-12">
+						<input type="text" class="form-control" name="lastname" id="lastname" placeholder="Apellido" 
+						[(ngModel)]="user.lastname"
+						 #lastname="ngModel" maxlength="20" minlength="3" required>
+						<div *ngIf="lastname.errors">
+							<div *ngIf="lastname.touched && !lastname.valid" class="alert alert-danger">
+								<strong>Warning!</strong>Campo requerido.
+							</div>
+							<div *ngIf="!lastname.validator.minlength && lastname.touched" class="alert alert-danger ">
+								<strong>Warning!</strong>Se Requieren mínimo 3 caracteres
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="form-group col-md-6">
+					<label for="nameuser" class="control-label col-md-12">Usuario:</label>
+					<div class="col-md-12">
+						<input type="text" class="form-control" id="nameuser" name="nameuser" placeholder="Usuario" 
+						[(ngModel)]="user.nameuser" #nameuser="ngModel"
+						 maxlength="20" minlength="3" required>
+						<div *ngIf="nameuser.errors">
+							<div *ngIf="nameuser.touched && !nameuser.valid" class="alert alert-danger">
+								<strong>Warning!</strong>Campo requerido.
+							</div>
+							<div *ngIf="!nameuser.validator.minlength && nameuser.touched" class="alert alert-danger ">
+								<strong>Warning!</strong>Se Requieren mínimo 3 caracteres
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="email" class="control-label col-md-12">Email:</label>
+					<div class="col-md-12">
+						<input type="text" class="form-control" id="email" name="email" placeholder="Email" 
+						[(ngModel)]="user.email" #email="ngModel"
+						 required pattern = "^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+						<div *ngIf="email.errors">
+							<div *ngIf="!email.valid && email.touched" class="alert alert-danger">
+								<strong>Warning!</strong>Verifique Email
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="form-group col-md-6">
+					<label for="idnrole" class="control-label col-md-12">Rol:</label>
+					<div class="col-md-12">
+						<div class="form-group">
+							<select class="form-control text-center" id="idnrole" name="idnrole" [(ngModel)]="user.idnrole" #idnrole="ngModel" required>
+									  <option *ngFor = "let role of roles" [value] = "role.idnrole" >{{role.namerole}}</option>	
+							</select>
+							<div *ngIf="idnrole.errors">
+								<div *ngIf="idnrole.touched && !idnrole.valid" class="alert alert-danger">
+									<strong>Warning!</strong>Campo requerido.
+								</div>
+							</div>
+							<div *ngIf="idnrole.errors">
+								<div *ngIf="idnrole.touched && !idnrole.valid" class="alert alert-danger">
+									<strong>Warning!</strong>Campo requerido.
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-md-3">
+				</div>
+				<div class="col-md-6">
+				</div>
+				<div class="col-md-3">
+
+					<div *ngIf=" name.errors || lastname.errors || nameuser.errors || email.errors || idnrole.errors">
+						<button class="btn btn-success" (click)="saveUser()" disabled="">Guardar</button>
+						<button class="btn btn-info" (click)="resetForm()">Cancelar</button>
+					</div>
+
+					<div *ngIf="!name.errors && !lastname.errors && !nameuser.errors && !email.errors && !idnrole.errors">
+						<button class="btn btn-success" (click)="saveUser()">Guardar</button>
+						<button class="btn btn-info" (click)="resetForm()">Cancelar</button>
+					</div> 
+				</div>
+			</div>
+		</div>
+	</form>
+</ba-card>

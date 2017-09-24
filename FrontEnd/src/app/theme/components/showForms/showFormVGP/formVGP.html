@@ -1,0 +1,169 @@
+<div class = "form-project" >
+    <div class="form-group row">
+        <div class="form-group col-md-6">
+            <label for="shortnamevprj" class="control-label col-md-12">Nombre Corto:</label>
+            <div class="col-md-12">
+                    <div class="input-group input-group-sm">
+                            <input type="text" class="form-control with-primary-addon" placeholder="Nombre corto" aria-describedby="basic-addon1">
+                            <span class="input-group-addon input-group-addon-primary addon-rigth" id="basic-addon1"><button class="btn btn-primary">Go!</button></span>
+                            
+                    </div>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <!-- Form group Author in view project (find) -->
+            <label for="authorvprj" class="control-label col-md-12">Autor:</label>
+            <div class="form-group col-md-12">
+                    <div class="form-group">
+                        
+                        <select  multiple class="form-control" id="exampleSelect2">
+                            
+                          <option *ngFor = "let authorvprj of labelsTableData" [value] = "authorvprj.name">{{authorvprj.name}}</option>	
+
+                         
+                        </select>
+                          </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <!-- Form group type project in view project (find)-->
+        <div class="form-group col-md-6">
+            <label for="typeprojectvprj" class="control-label col-md-12">Tipo Proyecto:</label>
+            <div class="col-md-12">
+                    <div class="form-group">
+                            
+                        <select  multiple class="form-control" id="exampleSelect2">
+                            
+                          <option *ngFor = "let typeprojectvprj of labelsTableData" [value] = "typeprojectvprj.name">{{typeprojectvprj.name}}</option>	
+
+                         
+                        </select>
+                              </div>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <!-- Form Group label in view project (find) -->
+            <label for="labelvprj" class="control-label col-md-12">Etiqueta:</label>
+            <div class="form-group col-md-12">
+                    <div class="form-group">
+                            
+                        <select  multiple class="form-control" id="exampleSelect2">
+                            
+                          <option *ngFor = "let labelvprj of labelsTableData" [value] = "labelvprj.name">{{labelvprj.name}}</option>	
+
+                         
+                        </select>
+                              </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <!-- Form group from date in view project (find) -->
+        <div class="form-group col-md-6">
+            <label for="datefromvprj" class="control-label col-md-12">Desde:</label>
+            <div class="col-md-12">
+                <div class="input-group">
+                    <my-date-picker name="mydate" [options]="myDatePickerOptions"
+                    [(ngModel)]="model" required></my-date-picker>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <!-- form group  date in view project (find) -->
+            <label for="datevprj" class="control-label col-md-12">Hasta:</label>
+            <div class="form-group col-md-12 ">
+                <div class="input-group">
+                    <my-date-picker name="mydate" [options]="myDatePickerOptions"
+                    [(ngModel)]="model" required></my-date-picker>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Table responsive whit data -->
+    <div class="form-group row">
+        <div class="form-group col-md-6">
+    <div class="table-responsive">
+        
+        <table class="table table-striped table-bordered table-hover table-condensed text-center ">
+            <thead >
+            <tr class="success">
+                
+                    <th class = "text-center"><h5>Nombre Corto</h5></th>
+                    <th class = "text-center"><h5>Nombre</h5></th>
+                    <th class = "text-center"><h5>Descripción</h5></th>
+                    <th class = "text-center"><h5>Fecha Creación</h5></th>
+                    
+                    <th class = "text-center"><h5>Autor</h5></th>
+                    <th class = "text-center"><h5>Tipo Proyecto</h5></th>
+                    <th class = "text-center"><h5>Editar</h5></th>																		
+                    <th class = "text-center"><h5>Eliminar</h5></th>
+            
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor = "let detail of viewProjectsTableData">
+                    <td>{{detail.shortname}}</td>
+                    <td>{{detail.name}}</td>
+                    <td>{{detail.description}}</td>
+                    <td>{{detail.creationdate}}</td>
+                    <td>{{detail.author}}</td>
+                    <td>{{detail.typeproject}}</td>
+                    <td>
+                            <button class = "btn btn-primary" ng-click = "editInfo(detail)" title = "Edit"><span class = "ion ion-edit"></span></button>
+                    </td>
+                    <td><button class = "btn btn-danger" ng-click = "editInfo(detail)" title = "Delete"><span class = "ion ion-trash-a"></span></button></td>
+            </tr>
+            </tbody>
+            <tfoot>
+    
+    </tfoot>
+    </table>
+    </div>
+</div>
+<div class="form-group col-md-6">
+        <div class="table-responsive">
+            
+                <table class="table table-striped table-bordered table-hover table-condensed text-center ">
+                    <thead >
+                    <tr class="success">
+                            <th class = "text-center"><h5>Proyecto Raíz</h5></th>
+                            <th class = "text-center"><h5>Nombre Corto</h5></th>
+                            <th class = "text-center"><h5>Nombre</h5></th>
+                            <th class = "text-center"><h5>Descripción</h5></th>
+                            <th class = "text-center"><h5>Fecha Creación</h5></th>
+                            <th class = "text-center"><h5>Etiquetas</h5></th>
+                            <th class = "text-center"><h5>Autor</h5></th>
+                            <th class = "text-center"><h5>Documento</h5></th>
+                            <th class = "text-center"><h5>Editar</h5></th>																		
+                            <th class = "text-center"><h5>Eliminar</h5></th>
+                    
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor = "let detail of viewSubProjectsTableData">
+                            <td>{{detail.idproject}}</td>
+                            <td>{{detail.shortname}}</td>
+                            <td>{{detail.name}}</td>
+                            <td>{{detail.description}}</td>
+                            <td>{{detail.creationdate}}</td>
+                            <td>{{detail.label}}</td>
+                            <td>{{detail.author}}</td>
+                            <td>
+                                <button class = "btn btn-primary" ng-click = "editInfo(detail)" title = "Edit"><span class = "ion ion-document-text"></span></button>
+                        </td>
+                            <td>
+                                    <button class = "btn btn-success" ng-click = "editInfo(detail)" title = "Edit"><span class = "ion ion-edit"></span></button>
+                            </td>
+                            <td><button class = "btn btn-danger" ng-click = "editInfo(detail)" title = "Delete"><span class = "ion ion-trash-a"></span></button></td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+            
+            </tfoot>
+            </table>
+            </div>
+</div>
+</div>
+</div>

@@ -1,0 +1,318 @@
+<ba-card cardTitle="Bienvenido al sistema SI-SAGA" baCardClass="with-scroll">
+	<form class="form-horizontal">
+		<div class="container-fluid">
+			<div class="form-group row">
+				<h4>Buscar proyectos o subproyectos para Editar </h4>
+			</div>
+			<div class="form-group row">
+				<div class="btn-group">
+					<button class="btn btn-primary" (click)="showFormEdit = 1" (click)="formToggle()">Proyecto</button>
+					<button class="btn btn-primary" (click)="showFormEdit = 2" (click)="formToggle()">Subproyecto</button>
+				</div>
+			</div>
+			<div class="box-shadow-border"></div>
+			<br>
+			<div class="form-edit-gp" *ngIf="showFormEdit == 1">
+				<div class="form-group row">
+					<h4>Ingrese los nuevos datos: </h4>
+				</div>
+				<div class="form-group row">
+					<div class="form-group col-md-6">
+						<label for="idgnrprj" class="control-label col-md-12">ID:</label>
+						<div class="col-md-12">
+							<input class="form-control" id="idgnrprj" name="idgnrprj" type="text" 
+							[(ngModel)]="project.idgnrprj" #idgnrprj="ngModel" value = {{project.idgnrprj}} maxlength="10" minlength="1"
+							 required readonly/>
+						</div>
+						<div *ngIf="idgnrprj.errors">
+							<div *ngIf="idgnrprj.touched && !idgnrprj.valid" class="alert alert-danger">
+								<strong>Warning!</strong>Campo requerido.
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="shortnamegnp" class="control-label col-md-12">Nombre Corto:</label>
+						<div class="col-md-12">
+							<input class="form-control" id="shortname" name="shortname" type="text" 
+							[(ngModel)]="project.shortnamegnp" #shortnamegnp="ngModel" value = {{project.shortnamegnp}}
+							 required maxlength="10" minlength="3">
+							<div *ngIf="shortnamegnp.errors">
+								<div *ngIf="shortnamegnp.touched && !shortnamegnp.valid" class="alert alert-danger">
+									<strong>Warning!</strong>Campo requerido.
+								</div>
+								<div *ngIf="!shortnamegnp.validator.minlength && shortnamegnp.touched" class="alert alert-danger ">
+									<strong>Warning!</strong>Se Requieren mínimo 3 caracteres
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="form-group col-md-6">
+						<label for="name" class="control-label col-md-12">Nombre:</label>
+						<div class="col-md-12">
+							<input type="text" class="form-control" id="name" name="name" 
+							[(ngModel)]="project.name" #name="ngModel" required maxlength="50" value = {{project.name}}
+							 minlength="3">
+							<div *ngIf="name.errors">
+								<div *ngIf="name.touched && !name.valid" class="alert alert-danger">
+									<strong>Warning!</strong>Campo requerido.
+								</div>
+							<div *ngIf="!name.validator.minlength && name.touched" class="alert alert-danger ">
+									<strong>Warning!</strong>Se Requieren mínimo 3 caracteres
+							</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="description" class="control-label col-md-12">Descripción:</label>
+						<div class="col-md-12">
+							<input type="text" class="form-control" id="description" name="description" value = {{project.description}}
+							[(ngModel)]="project.description" #description="ngModel"
+							 required maxlength="100" minlength="3">
+							<div *ngIf="description.errors">
+								<div *ngIf="description.touched && !description.valid" class="alert alert-danger">
+									<strong>Warning!</strong>Campo requerido.
+								</div>
+								<div *ngIf="!description.validator.minlength && description.touched" class="alert alert-danger ">
+									<strong>Warning!</strong>Se Requieren mínimo 3 caracteres
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="form-group col-md-6">
+						<label for="creationdate" class="control-label col-md-12">Fecha de Creación:</label>
+						<div class="col-md-12">
+							<div class="input-group date">
+								<my-date-picker name="creationdate" #creationdate="ngModel" [options]="myDatePickerOptions" 
+								[(ngModel)]="project.creationdate"
+								 required></my-date-picker>
+							</div>
+							<div *ngIf="creationdate.errors">
+								<div *ngIf="creationdate.touched && !creationdate.valid" class="alert alert-danger">
+									<strong>Warning!</strong>Campo requerido.
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="idnprjtype" class="control-label col-md-12">Tipo Proyecto:</label>
+						<div class="col-md-12">
+							<div class="form-group">
+								<select class="form-control" id="idnprjtype" name="idnprjtype" 
+								[(ngModel)]="typeProject.idnprjtype" #idnprjtype="ngModel"
+								 required>				
+									 <option *ngFor = "let typeProject of typeProjects" [value] = "typeProject.name">{{typeProject.name}}</option>	
+								</select>
+								<div *ngIf="idnprjtype.errors">
+									<div *ngIf="idnprjtype.touched && !idnprjtype.valid" class="alert alert-danger">
+										<strong>Warning!</strong>Campo requerido.
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="form-group col-md-6">
+						<label for="idnauthor" class="control-label col-md-12">Autor:</label>
+						<div class="col-md-12">
+							<div class="form-group">
+								<select class="form-control" id="idnauthor" name="idnauthor" 
+								[(ngModel)]="author.idnauthor" #idnauthor="ngModel" required>
+									<option *ngFor = "let author of authors" [value] = "author.name">{{author.name}}</option>	
+								</select>
+								<div *ngIf="idnauthor.errors">
+									<div *ngIf="idnauthor.touched && !idnauthor.valid" class="alert alert-danger">
+										<strong>Warning!</strong>Campo requerido.
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-md-6">
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-md-4">
+					</div>
+					<div class="col-md-4">
+					</div>
+					<div class="col-md-4">
+						<div *ngIf="idgnrprj.errors || shortnamegnp.errors || name.errors || description.errors || creationdate.errors || idnauthor.errors || idnprjtype.errors">
+							<button class="btn btn-primary" name="buttonSave" (click)="goSubProject()" disabled>SubProyecto	</button>
+							<button class="btn btn-success" (click)="updateProject()" disabled="">Guardar</button>
+							<button class="btn btn-info" (click)="resetFormProject()">Cancelar</button>
+						</div>
+
+						<div *ngIf="!idgnrprj.errors && !shortnamegnp.errors && !name.errors && !description.errors && !creationdate.errors && !idnauthor.errors && !idnprjtype.errors">
+							<button class="btn btn-primary" name="buttonSave" (click)="goSubProject()">SubProyecto	</button>
+							<button class="btn btn-success" (click)="updateProject()">Guardar</button>
+							<button class="btn btn-info" (click)="resetFormProject()">Cancelar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-edit-gp" *ngIf="showFormEdit == 2">
+				<div class="form-group row">
+					<h4>Ingrese los nuevos datos: </h4>
+				</div>
+				<div class="form-group row">
+					<div class="form-group col-md-6">
+						<label for="idnprj" class="control-label col-md-12">ID:</label>
+						<div class="col-md-12">
+							<input class="form-control" id="idnprj" name="idnprj" type="text" 
+							[(ngModel)]="subProject.idnprj" #idnprj="ngModel" maxlength="10" minlength="1" value = {{subProject.idnprj}} required
+							 readonly/>
+						</div>
+						<div *ngIf="idnprj.errors">
+							<div *ngIf="idnprj.touched && !idnprj.valid" class="alert alert-danger">
+								<strong>Warning!</strong>Campo requerido.
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="shortnamegnp" class="control-label col-md-12">Shortname Poyecto Raíz:</label>
+						<div class="col-md-12">
+							<input class="form-control" id="shortnamegnp" name="shortnamegnp" type="text" value = {{subProject.shortnamegnp}}
+							[(ngModel)]="subProject.shortnamegnp" #shortnamegnp="ngModel"
+							maxlength="10" minlength="3" required>
+						</div>
+						<div *ngIf="shortnamegnp.errors">
+							<div *ngIf="shortnamegnp.touched && !shortnamegnp.valid" class="alert alert-danger">
+								<strong>Warning!</strong>Campo requerido.
+							</div>
+							<div *ngIf="!shortnamegnp.validator.minlength && shortnamegnp.touched" class="alert alert-danger ">
+								<strong>Warning!</strong>Se Requieren mínimo 3 caracteres
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="form-group col-md-6">
+						<label for="shortnamespr" class="control-label col-md-12">Nombre Corto:</label>
+						<div class="col-md-12">
+							<input class="form-control" id="shortnamespr" name="shortnamespr" type="text" value = {{subProject.shortnamespr}}
+							[(ngModel)]="subProject.shortnamespr" #shortnamespr="ngModel"
+							 maxlength="10" minlength="3" required>
+							<div *ngIf="shortnamespr.errors">
+								<div *ngIf="shortnamespr.touched && !shortnamespr.valid" class="alert alert-danger">
+									<strong>Warning!</strong>Campo requerido.
+								</div>
+								<div *ngIf="!shortnamespr.validator.minlength && shortnamespr.touched" class="alert alert-danger ">
+									<strong>Warning!</strong>Se Requieren mínimo 3 caracteres
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="name" class="control-label col-md-12">Nombre:</label>
+						<div class="col-md-12">
+							<input type="text" class="form-control" id="name" [(ngModel)]="subProject.name" value = {{subProject.name}}
+							name="name" #name="ngModel" maxlength="50"
+							 minlength="3" required>
+							<div *ngIf="name.errors">
+								<div *ngIf="name.touched && !name.valid" class="alert alert-danger">
+									<strong>Warning!</strong>Campo requerido.
+								</div>
+								<div *ngIf="!name.validator.minlength && name.touched" class="alert alert-danger ">
+									<strong>Warning!</strong>Se Requieren mínimo 3 caracteres
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="form-group col-md-6">
+						<label for="description" class="control-label col-md-12">Descripción:</label>
+						<div class="col-md-12">
+							<input type="text" class="form-control" id="description" [(ngModel)]="subProject.description" value = {{subProject.description}}
+							name="description" #description="ngModel"
+							 maxlength="150" minlength="3" required>
+							<div *ngIf="description.errors">
+								<div *ngIf="description.touched && !description.valid" class="alert alert-danger">
+									<strong>Warning!</strong>Campo requerido.
+								</div>
+								<div *ngIf="!description.validator.minlength && description.touched" class="alert alert-danger ">
+									<strong>Warning!</strong>Se Requieren mínimo 3 caracteres
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="creationdate" class="control-label col-md-12">Fecha de Creación:</label>
+						<div class="col-md-12">
+							<div class="input-group date">
+								<my-date-picker name="creationdate" #creationdate="ngModel" [options]="myDatePickerOptions" 
+								[(ngModel)]="subProject.creationdate"
+								 required></my-date-picker>
+							</div>
+							<div *ngIf="creationdate.errors">
+								<div *ngIf="creationdate.touched && !creationdate.valid" class="alert alert-danger">
+									<strong>Warning!</strong>Campo requerido.
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="form-group col-md-6">
+						<label for="idprjlabel" class="control-label  col-md-12">Etiqueta:</label>
+						<div class="col-md-12">
+							<div class="form-group">
+								<select class="form-control text-center" id="idprjlabel" name="idprjlabel" 
+								[(ngModel)]="label.idprjlabel" #idprjlabel="ngModel"
+								 required>			
+									  <option *ngFor = "let label of labels" [value] = "label.name">{{label.name}}</option>	
+									</select>
+								<div *ngIf="name.errors">
+									<div *ngIf="idprjlabel.touched && !idprjlabel.valid" class="alert alert-danger">
+										<strong>Warning!</strong>Campo requerido.
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="idnathor" class="control-label col-md-12">Autor:</label>
+						<div class="col-md-12">
+							<div class="form-group">
+								<select class="form-control text-center" id="idnauthor" name="idnauthor" 
+								[(ngModel)]="author.idnauthor" #idnauthor="ngModel"
+								 required>	
+								  <option *ngFor = "let author of authors" [value] = "author.name">{{author.name}}</option>	
+								</select>
+								<div *ngIf="idnauthor.errors">
+									<div *ngIf="idnauthor.touched && !idnauthor.valid" class="alert alert-danger">
+										<strong>Warning!</strong>Campo requerido.
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-md-4">
+					</div>	
+					<div class="col-md-4">
+					</div>
+					<div class="col-md-4">
+						<div *ngIf="shortnamegnp.errors || shortnamespr.errors || name.errors || description.errors || creationdate.errors || idnauthor.errors || idprjlabel.errors">
+							<button class="btn btn-primary" name="buttonSave" (click)="goDocument()" disabled>Documento</button>
+							<button class="btn btn-success" (click)="updateSubProject()" disabled="">Guardar</button>
+							<button class="btn btn-info" (click)="resetFormSubProject()">Cancelar</button>
+						</div>
+
+						<div *ngIf="!shortnamegnp.errors && !shortnamespr.errors && !name.errors && !description.errors && !creationdate.errors && !idnauthor.errors && !idprjlabel.errors">
+							<button class="btn btn-primary" name="buttonSave" (click)="goDocument()">Documento</button>
+							<button class="btn btn-success" (click)="updateSubProject()">Guardar</button>
+							<button class="btn btn-info" (click)="resetFormSubProject()">Cancelar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</ba-card>

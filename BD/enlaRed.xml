@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?><Db flnm="enlaRed" nm="enlaRed" ver="1.3.4">
+  <VerLbl/>
+  <VerNotes/>
+  <DefTblOpts/>
+  <DocFolder>C:\Users\jomacias\Documents\Nova-kb\BD</DocFolder>
+  <Sch Cm="standard public schema" nm="public">
+    <Tbl UsSo="1" nm="tb_adm_permissions">
+      <Cm>tb_adm_permissions: Tabla para indicar los permisos de cada rol</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="idnpermission" nm="pktb_adm_permissions"/>
+      <Cl au="1" df="nextval('tb_adm_permissions_idnpermission_seq'::regclass)" nm="idnpermission" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="name" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="50" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="description" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="200" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idnpermissions" nu="0">
+        <DT arr="0" ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tb_adm_roles">
+      <Cm>tb_adm_roles: Tabla para indicar los roles que desempeñan los usuarios dentro del sistema</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="idnrole" nm="pktb_adm_roles"/>
+      <Cl au="1" df="nextval('tb_adm_roles_idnrole_seq'::regclass)" nm="idnrole" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="namerole" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="50" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="description" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="200" sc="null" sg="1" un="0"/>
+      </Cl>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tb_adm_rolesxpermissions">
+      <Cm>tb_adm_rolesxpermissions: Table for relatinshio table tb_adm_roles between tb_adm_permissions</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="idnrolexperm" nm="pktb_adm_rolesxpermissions"/>
+      <Cl au="1" df="nextval('tb_adm_rolesxpermissions_idnrolexperm_seq'::regclass)" nm="idnrolexperm" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idnpermission" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idnrole" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_tb_adm_rolesxpermissions_tb_adm_permissions" prLkCl="idnpermission" upAc="3">
+        <PrTb mn="0" nm="tb_adm_permissions" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="tb_adm_rolesxpermissions" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="idnpermission" prCl="idnpermission"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_tb_adm_rolesxpermissions_tb_adm_roles" prLkCl="idnrole" upAc="3">
+        <PrTb mn="0" nm="tb_adm_roles" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="tb_adm_rolesxpermissions" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="idnrole" prCl="idnrole"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tb_adm_users">
+      <Cm>tb_adm_users: Tabla encargada de almacenar información de los usuarios y sus campos necesarios para relacionar el usuario con el rol que desempeña dentro del sistema</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="idnuser" nm="pktb_adm_users"/>
+      <Cl au="1" df="nextval('tb_adm_users_idnuser_seq'::regclass)" nm="idnuser" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="name" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="50" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="lastname" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="50" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="nameuser" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="20" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idnrole" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="email" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="200" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_tb_adm_users_tb_adm_roles" prLkCl="idnrole" upAc="3">
+        <PrTb mn="0" nm="tb_adm_roles" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="tb_adm_users" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="idnrole" prCl="idnrole"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tb_gnr_project">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="idgnrprj" nm="pktb_gnr_project"/>
+      <Cl au="0" df="" nm="idgnrprj" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="name" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="50" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="shortname" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="25" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="description" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="creationdate" nu="0">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tb_gnr_projectxauthor">
+      <Cm>tb_gnr_projectxauthor: This table is relation between general project and author</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="idprjgnrxprj" nm="pktb_gnr_projectxauthor"/>
+      <Cl au="0" df="" nm="idprjgnrxprj" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idgnrprj" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idnauthor" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_tb_gnr_projectxauthor_tb_gnr_project" prLkCl="idgnrprj" upAc="3">
+        <PrTb mn="0" nm="tb_gnr_project" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="tb_gnr_projectxauthor" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="idgnrprj" prCl="idgnrprj"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_tb_gnr_projectxauthor_tb_prj_author" prLkCl="idnauthor" upAc="3">
+        <PrTb mn="0" nm="tb_prj_author" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="tb_gnr_projectxauthor" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="idnauthor" prCl="idnauthor"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tb_gnr_projectxtypeproject">
+      <Cm>tb_gnr_projectxtypeproject:  This table is relation between general project and type project</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="idnprjgnrxtp" nm="pktb_gnr_projectxtypeproject"/>
+      <Cl au="0" df="" nm="idgnrprj" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idnprjtype" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idnprjgnrxtp" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_tb_gnr_projectxtypeproject_tb_gnr_project" prLkCl="idgnrprj" upAc="3">
+        <PrTb mn="0" nm="tb_gnr_project" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="tb_gnr_projectxtypeproject" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="idgnrprj" prCl="idgnrprj"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_tb_gnr_projectxtypeproject_tb_prj_projects_types" prLkCl="idnprjtype" upAc="3">
+        <PrTb mn="0" nm="tb_prj_projects_types" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="tb_gnr_projectxtypeproject" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="idnprjtype" prCl="idnprjtype"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tb_prj_author">
+      <Cm>tb_prj_author:Table for save the author</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="idnauthor" nm="pktb_prj_author"/>
+      <Cl au="1" df="nextval('tb_prj_author_idnauthor_seq'::regclass)" nm="idnauthor" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="name" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="50" sc="null" sg="1" un="0"/>
+      </Cl>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tb_prj_authorxproject">
+      <Cm>tb_prj_authorxproject</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="idnauthorxprj" nm="pktb_prj_authorxproject"/>
+      <Cl au="1" df="nextval('tb_prj_authorxproject_idnauthorxprj_seq'::regclass)" nm="idnauthorxprj" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idnprj" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idnauthor" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_tb_prj_authorxproject_tb_prj_author" prLkCl="idnauthor" upAc="3">
+        <PrTb mn="0" nm="tb_prj_author" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="tb_prj_authorxproject" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="idnauthor" prCl="idnauthor"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_tb_prj_authorxproject_tb_prj_projects" prLkCl="idnprj" upAc="3">
+        <PrTb mn="0" nm="tb_prj_projects" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="tb_prj_authorxproject" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="idnprj" prCl="idnprj"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tb_prj_documents">
+      <Cm>tb_prj_documents: Table for save documents</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="idndocument" nm="pktb_prj_documents"/>
+      <Cl au="1" df="nextval('tb_prj_documents_idndocument_seq'::regclass)" nm="idndocument" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="shortname" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="20" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="name" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="50" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="description" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="200" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="creationdate" nu="0">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idnprj" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="file" nu="0">
+        <DT arr="0" ds="BLOB" en="" id="2004" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_tb_prj_documents_tb_prj_projects" prLkCl="idnprj" upAc="3">
+        <PrTb mn="0" nm="tb_prj_projects" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="tb_prj_documents" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="idnprj" prCl="idnprj"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tb_prj_projects">
+      <Cm>tb_prj_projects: Table for save the projects</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="idnprj" nm="pktb_prj_projects"/>
+      <Cl au="0" df="" nm="shortname" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="20" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="name" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="50" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="description" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="200" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="creationdate" nu="0">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="1" df="nextval('tb_prj_projects_idnprj_seq'::regclass)" nm="idnprj" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idgnrprj" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_tb_prj_projects_tb_gnr_project" prLkCl="idgnrprj" upAc="3">
+        <PrTb mn="0" nm="tb_gnr_project" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="tb_prj_projects" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="idgnrprj" prCl="idgnrprj"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tb_prj_projects_labels">
+      <Cm>tb_prj_projects_labels: table for labels</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="idprjlabel" nm="pktb_prj_projects_labels"/>
+      <Cl au="1" df="nextval('tb_prj_projects_labels_idprjlabel_seq'::regclass)" nm="idprjlabel" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="name" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="50" sc="null" sg="1" un="0"/>
+      </Cl>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tb_prj_projects_types">
+      <Cm>tb_prj_projects_types: Table for save projects types</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="idnprjtype" nm="pktb_prj_projects_types"/>
+      <Cl au="1" df="nextval('tb_prj_projects_types_idnprjtype_seq'::regclass)" nm="idnprjtype" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="name" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="50" sc="null" sg="1" un="0"/>
+      </Cl>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tb_prj_projectxlabel">
+      <Cm>tb_prj_rolsxpermissions: Table for relation many and many the tables tb_prj_projects and tb_prj_projects_labels</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="idnprjxlabel" nm="pktb_prj_projectxlabel"/>
+      <Cl au="1" df="nextval('tb_prj_projectxlabel_idnprjxlabel_seq'::regclass)" nm="idnprjxlabel" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idprjlabel" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idnprj" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_tb_prj_projectxlabel_tb_prj_projects" prLkCl="idnprj" upAc="3">
+        <PrTb mn="0" nm="tb_prj_projects" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="tb_prj_projectxlabel" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="idnprj" prCl="idnprj"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_tb_prj_projectxlabel_tb_prj_projects_labels" prLkCl="idprjlabel" upAc="3">
+        <PrTb mn="0" nm="tb_prj_projects_labels" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="tb_prj_projectxlabel" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="idprjlabel" prCl="idprjlabel"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tb_prj_typesxproject">
+      <Cm>tb_prj_typesxproject: Table for relation between table tb_prj_projects and tb_prj_typesprojects</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="idntypesxprj" nm="pktb_prj_typesxproject"/>
+      <Cl au="1" df="nextval('tb_prj_typesxproject_idntypesxprj_seq'::regclass)" nm="idntypesxprj" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idnprj" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idnprjtype" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_tb_prj_typesxproject_tb_prj_projects" prLkCl="idnprj" upAc="3">
+        <PrTb mn="0" nm="tb_prj_projects" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="tb_prj_typesxproject" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="idnprj" prCl="idnprj"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_tb_prj_typesxproject_tb_prj_projects_types" prLkCl="idnprjtype" upAc="3">
+        <PrTb mn="0" nm="tb_prj_projects_types" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="tb_prj_typesxproject" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="idnprjtype" prCl="idnprjtype"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Seq incr="1" nm="idgnrprj_sequence"/>
+    <Seq incr="1" nm="idnauthor_sequence"/>
+    <Seq incr="1" nm="idnauthorxprj_sequence"/>
+    <Seq incr="1" nm="idndocument_sequence"/>
+    <Seq incr="1" nm="idnpermissions_sequence"/>
+    <Seq incr="1" nm="idnprj_sequence"/>
+    <Seq incr="1" nm="idnprjgnrxlabel_sequence"/>
+    <Seq incr="1" nm="idnprjgnrxtp_sequence"/>
+    <Seq incr="1" nm="idnprjtype_sequence"/>
+    <Seq incr="1" nm="idnprjxlabel_sequence"/>
+    <Seq incr="1" nm="idnrole_sequence"/>
+    <Seq incr="1" nm="idnrolexperm_sequence"/>
+    <Seq incr="1" nm="idntypesxprj_sequence"/>
+    <Seq incr="1" nm="idnuser_sequence"/>
+    <Seq incr="1" nm="idprjgnrxprj_sequence"/>
+    <Seq incr="1" nm="idprjlabel_sequence"/>
+    <Seq incr="1" nm="tb_adm_permissions_idnpermission_seq">
+      <Cm>DbWrench Autogenerated Sequence.</Cm>
+    </Seq>
+    <Seq incr="1" nm="tb_adm_roles_idnrole_seq">
+      <Cm>DbWrench Autogenerated Sequence.</Cm>
+    </Seq>
+    <Seq incr="1" nm="tb_adm_rolesxpermissions_idnrolexperm_seq">
+      <Cm>DbWrench Autogenerated Sequence.</Cm>
+    </Seq>
+    <Seq incr="1" nm="tb_adm_users_idnuser_seq">
+      <Cm>DbWrench Autogenerated Sequence.</Cm>
+    </Seq>
+    <Seq incr="1" nm="tb_prj_author_idnauthor_seq">
+      <Cm>DbWrench Autogenerated Sequence.</Cm>
+    </Seq>
+    <Seq incr="1" nm="tb_prj_authorxproject_idnauthorxprj_seq">
+      <Cm>DbWrench Autogenerated Sequence.</Cm>
+    </Seq>
+    <Seq incr="1" nm="tb_prj_documents_idndocument_seq">
+      <Cm>DbWrench Autogenerated Sequence.</Cm>
+    </Seq>
+    <Seq incr="1" nm="tb_prj_projects_idnprj_seq">
+      <Cm>DbWrench Autogenerated Sequence.</Cm>
+    </Seq>
+    <Seq incr="1" nm="tb_prj_projects_labels_idprjlabel_seq">
+      <Cm>DbWrench Autogenerated Sequence.</Cm>
+    </Seq>
+    <Seq incr="1" nm="tb_prj_projects_types_idnprjtype_seq">
+      <Cm>DbWrench Autogenerated Sequence.</Cm>
+    </Seq>
+    <Seq incr="1" nm="tb_prj_projectxlabel_idnprjxlabel_seq">
+      <Cm>DbWrench Autogenerated Sequence.</Cm>
+    </Seq>
+    <Seq incr="1" nm="tb_prj_typesxproject_idntypesxprj_seq">
+      <Cm>DbWrench Autogenerated Sequence.</Cm>
+    </Seq>
+    <CustomTypes/>
+  </Sch>
+  <Dgm nm="diagramA">
+    <RnCf ClkAct="true" FtSz="11" lkStgy="RightAngleStrategy" zm="1.0">
+      <VbCfg>
+        <Fg ky="Auto Number" vl="0"/>
+        <Fg ky="Check" vl="0"/>
+        <Fg ky="Comment" vl="0"/>
+        <Fg ky="Data Type" vl="1"/>
+        <Fg ky="Default" vl="0"/>
+        <Fg ky="ENUM Values" vl="0"/>
+        <Fg ky="Length" vl="1"/>
+        <Fg ky="Name" vl="1"/>
+        <Fg ky="Nullable" vl="0"/>
+        <Fg ky="Schema Name" vl="0"/>
+        <Fg ky="Signed" vl="0"/>
+      </VbCfg>
+    </RnCf>
+    <DiaProps>
+      <Show AllCols="1" FkCols="1" FkNms="1" PkCols="1"/>
+      <ErNotation>BarkerErNotation</ErNotation>
+      <DbTableRectangleFill>HeaderFooterFill</DbTableRectangleFill>
+      <svg path=""/>
+    </DiaProps>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="tb_adm_permissions" x="1071" y="577"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="tb_adm_roles" x="387" y="577"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="tb_adm_rolesxpermissions" x="739" y="577"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="tb_adm_users" x="50" y="577"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="tb_gnr_project" x="389" y="279"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="tb_gnr_projectxauthor" x="58" y="279"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="tb_gnr_projectxtypeproject" x="52" y="471"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="tb_prj_author" x="1434" y="50"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="tb_prj_authorxproject" x="1114" y="50"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="tb_prj_documents" x="380" y="146"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="tb_prj_projects" x="733" y="50"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="tb_prj_projects_labels" x="77" y="50"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="tb_prj_projects_types" x="1408" y="146"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="tb_prj_projectxlabel" x="403" y="50"/>
+    <FkGl bkCl="ff000000" childEdge="EAST" nm="public.tb_adm_rolesxpermissions.fk_tb_adm_rolesxpermissions_tb_adm_permissions" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="1071" x2="951" y1="610" y2="610"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="WEST" nm="public.tb_adm_rolesxpermissions.fk_tb_adm_rolesxpermissions_tb_adm_roles" parentEdge="EAST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="609" x2="739" y1="610" y2="610"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="EAST" nm="public.tb_adm_users.fk_tb_adm_users_tb_adm_roles" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="387" x2="267" y1="610" y2="610"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="EAST" nm="public.tb_gnr_projectxauthor.fk_tb_gnr_projectxauthor_tb_gnr_project" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="389" x2="249" y1="312" y2="312"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="NORTH" nm="public.tb_gnr_projectxauthor.fk_tb_gnr_projectxauthor_tb_prj_author" parentEdge="WEST" positioner="TwoLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="PARENT_LINE" x1="1434" x2="157" y1="84" y2="84"/>
+        <positionableLine lineRole="CHILD_LINE" x1="153" x2="153" y1="279" y2="88"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="EAST" nm="public.tb_gnr_projectxtypeproject.fk_tb_gnr_projectxtypeproject_tb_gnr_project" parentEdge="SOUTH" positioner="TwoLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="PARENT_LINE" x1="537" x2="537" y1="371" y2="467"/>
+        <positionableLine lineRole="CHILD_LINE" x1="269" x2="533" y1="471" y2="471"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="EAST" nm="public.tb_gnr_projectxtypeproject.fk_tb_gnr_projectxtypeproject_tb_prj_projects_types" parentEdge="SOUTH" positioner="TwoLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="PARENT_LINE" x1="1513" x2="1513" y1="199" y2="500"/>
+        <positionableLine lineRole="CHILD_LINE" x1="269" x2="1509" y1="504" y2="504"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="EAST" nm="public.tb_prj_authorxproject.fk_tb_prj_authorxproject_tb_prj_author" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="1434" x2="1314" y1="76" y2="76"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="WEST" nm="public.tb_prj_authorxproject.fk_tb_prj_authorxproject_tb_prj_projects" parentEdge="EAST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="964" x2="1114" y1="83" y2="83"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="EAST" nm="public.tb_prj_documents.fk_tb_prj_documents_tb_prj_projects" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="733" x2="613" y1="150" y2="150"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="SOUTH" nm="public.tb_prj_projects.fk_tb_prj_projects_tb_gnr_project" parentEdge="EAST" positioner="TwoLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="PARENT_LINE" x1="613" x2="844" y1="325" y2="325"/>
+        <positionableLine lineRole="CHILD_LINE" x1="848" x2="848" y1="155" y2="321"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="EAST" nm="public.tb_prj_projectxlabel.fk_tb_prj_projectxlabel_tb_prj_projects" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="733" x2="593" y1="83" y2="83"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="WEST" nm="public.tb_prj_projectxlabel.fk_tb_prj_projectxlabel_tb_prj_projects_labels" parentEdge="EAST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="283" x2="403" y1="76" y2="76"/>
+      </positionableLines>
+    </FkGl>
+    <Notes/>
+    <Zones/>
+  </Dgm>
+  <RnmMgr NxRnmId="2">
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="tb_prj_documents" SupCls="Schema" SupNme="public">
+      <Rnm id="1" nNm="file" oNm="urlfile"/>
+    </RnmCh>
+  </RnmMgr>
+  <DbDocOptionMgr>
+    <BasicOptionMgr>
+      <Name>db.doc.option.mgr</Name>
+      <BoolOpt lbl="Diagrams" nm="doc.diagrams" on="1" spl="0"/>
+      <BoolOpt lbl="Foreign Keys" nm="doc.fks" on="1" spl="0"/>
+      <BoolOpt lbl="Indexes" nm="doc.indexes" on="1" spl="0"/>
+      <BoolOpt lbl="Overwrite CSS File" nm="doc.overwrite.css" on="1" spl="0"/>
+      <BoolOpt lbl="Procedures" nm="doc.procs" on="1" spl="0"/>
+      <BoolOpt lbl="Schemas" nm="doc.schemas" on="1" spl="0"/>
+      <BoolOpt lbl="Sequences" nm="doc.sequences" on="1" spl="0"/>
+      <BoolOpt lbl="Tables" nm="doc.tables" on="1" spl="0"/>
+      <BoolOpt lbl="Triggers" nm="doc.triggers" on="1" spl="0"/>
+      <BoolOpt lbl="Views" nm="doc.views" on="1" spl="0"/>
+    </BasicOptionMgr>
+  </DbDocOptionMgr>
+  <OpenEditors/>
+  <TreePaths>
+    <TreePath/>
+  </TreePaths>
+  <SqlTexts/>
+</Db>
